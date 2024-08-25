@@ -27,7 +27,7 @@ public class User extends AuditEntity {
     private Integer codAlu;
 
     @Column(name = "USERNAME")
-    private String userName;
+    private String username;
 
     @Column(name = "PASSWORD")
     private String password;
