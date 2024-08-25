@@ -23,4 +23,26 @@ public class User extends AuditEntity {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Column(name = "COD_ALU")
+    private Integer codAlu;
+
+    @Column(name = "USERNAME")
+    private String userName;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "CARRERA")
+    private String carrera;
+
+    @Column(name = "CANT_ACC")
+    private Integer cantAcc;
+
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    private Role roleId;
+
 }

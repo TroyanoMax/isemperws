@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ROLES")
@@ -22,5 +24,14 @@ public class Role extends AuditEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROLE_ID")
     private Long roleId;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "CODE")
+    private String code;
+
+    @OneToMany(mappedBy = "roleId")
+    private Set<User> users = new HashSet<>();
 
 }
