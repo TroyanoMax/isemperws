@@ -6,7 +6,7 @@ import lombok.*;
 import java.io.Serial;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor

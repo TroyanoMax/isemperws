@@ -1,5 +1,18 @@
 spring:
+
   application:
     name: institutosemper
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/x031vm05_institutows
+    username: x031vm05_autoges
+    password: Auto5934
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none  # Puede ser 'update', 'validate', 'create', 'create-drop'
+    show-sql: true      # Muestra las consultas SQL en la consola
+
 server:
   port: 8090
