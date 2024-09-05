@@ -59,6 +59,6 @@ public abstract class AuditEntity implements Serializable {
      * Flag that indicates if the record is active or not.
      */
     @Column(name = "IS_ACTIVE")
-    private Integer isActive;
+    private boolean isActive;
 
 }

@@ -12,7 +12,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none  # Puede ser 'update', 'validate', 'create', 'create-drop'
-    show-sql: true      # Muestra las consultas SQL en la consola
+    show-sql: false    # Muestra las consultas SQL en la consola
+
+  security:
+    user:
+      name: admin
+      password: admin123
 
 server:
   port: 8090
+  servlet:
+    context-path: /sagis

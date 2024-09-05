@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleDTO {
 
-    @JsonProperty("roleId")
+    @JsonProperty("roleEntityId")
     private Long roleId;
 
     @JsonProperty("description")
