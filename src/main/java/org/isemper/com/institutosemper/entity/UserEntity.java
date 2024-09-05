@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +14,7 @@ import java.io.Serial;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class User extends AuditEntity {
+public class UserEntity extends AuditEntity {
 
     /** * The serial Version UID. */
     @Serial
@@ -41,8 +43,12 @@ public class User extends AuditEntity {
     @Column(name = "CANT_ACC")
     private Integer cantAcc;
 
-    @ManyToOne
-    @JoinColumn(name = "ROLE_ID")
-    private Role roleId;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Role extends AuditEntity {
+public class RoleEntity extends AuditEntity {
 
     /** * The serial Version UID. */
     @Serial
@@ -31,7 +31,7 @@ public class Role extends AuditEntity {
     @Column(name = "CODE")
     private String code;
 
-    @OneToMany(mappedBy = "roleId")
-    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Set<UserEntity> users = new HashSet<>();
 
 }
