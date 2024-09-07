@@ -6,6 +6,7 @@ import org.isemper.com.institutosemper.entity.RoleEntity;
 import org.isemper.com.institutosemper.entity.UserEntity;
 import org.isemper.com.institutosemper.repository.RoleRepository;
 import org.isemper.com.institutosemper.repository.UserRepository;
+import org.isemper.com.institutosemper.repository.UserRoleRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +23,16 @@ public class LoginController {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
 
-    public LoginController(UserRepository userRepository, RoleRepository roleRepository) {
+    public LoginController(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserEntity>> data() {
+    public ResponseEntity<UserEntity> data() {
         // Crear un objeto JSON utilizando ObjectMapper
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
@@ -44,8 +47,15 @@ public class LoginController {
                 }
         );
 
+        user.ifPresent(
+                userEntity -> {
+                    userEntity.setCantAcc(userEntity.getCantAcc() + 1);
+                    userRepository.save(userEntity);
+                }
+        );
+
         // Retornar la respuesta con el JSON y el estado 200 OK
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(user.get());
     }
 
 }
