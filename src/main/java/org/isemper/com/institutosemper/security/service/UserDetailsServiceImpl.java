@@ -1,7 +1,7 @@
-package org.isemper.com.institutosemper.service;
+package org.isemper.com.institutosemper.security.service;
 
-import org.isemper.com.institutosemper.entity.UserEntity;
-import org.isemper.com.institutosemper.repository.UserRepository;
+import org.isemper.com.institutosemper.security.entity.UserEntity;
+import org.isemper.com.institutosemper.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

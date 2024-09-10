@@ -1,10 +1,12 @@
-package org.isemper.com.institutosemper.entity;
+package org.isemper.com.institutosemper.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,6 +51,7 @@ public class UserEntity extends AuditEntity {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
-    private Set<RoleEntity> roles = new HashSet<>();
+    @JsonManagedReference
+    private List<RoleEntity> roles;
 
 }

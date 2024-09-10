@@ -1,4 +1,4 @@
-package org.isemper.com.institutosemper.entity;
+package org.isemper.com.institutosemper.security.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

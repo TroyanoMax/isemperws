@@ -1,10 +1,12 @@
-package org.isemper.com.institutosemper.entity;
+package org.isemper.com.institutosemper.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,6 +34,7 @@ public class RoleEntity extends AuditEntity {
     private String code;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<UserEntity> users = new HashSet<>();
+    @JsonBackReference
+    private List<UserEntity> users;
 
 }
