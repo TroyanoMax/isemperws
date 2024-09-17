@@ -2,11 +2,11 @@ package org.isemper.com.institutosemper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.isemper.com.institutosemper.entity.RoleEntity;
-import org.isemper.com.institutosemper.entity.UserEntity;
-import org.isemper.com.institutosemper.repository.RoleRepository;
-import org.isemper.com.institutosemper.repository.UserRepository;
-import org.isemper.com.institutosemper.repository.UserRoleRepository;
+import org.isemper.com.institutosemper.security.entity.RoleEntity;
+import org.isemper.com.institutosemper.security.entity.UserEntity;
+import org.isemper.com.institutosemper.security.repository.RoleRepository;
+import org.isemper.com.institutosemper.security.repository.UserRepository;
+import org.isemper.com.institutosemper.security.repository.UserRoleRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
-public class LoginController {
+@RequestMapping("/public")
+public class PublicController {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
 
-    public LoginController(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
+    public PublicController(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userRoleRepository = userRoleRepository;

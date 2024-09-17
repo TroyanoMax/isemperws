@@ -1,4 +1,4 @@
-package org.isemper.com.institutosemper.entity;
+package org.isemper.com.institutosemper.security.entity;
 
 import lombok.*;
 import jakarta.persistence.Column;
