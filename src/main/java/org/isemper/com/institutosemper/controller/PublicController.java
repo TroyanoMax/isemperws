@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
-public class LoginController {
+@RequestMapping("/public")
+public class PublicController {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
 
-    public LoginController(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
+    public PublicController(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userRoleRepository = userRoleRepository;
