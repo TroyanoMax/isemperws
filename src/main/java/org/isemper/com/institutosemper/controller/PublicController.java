@@ -2,8 +2,8 @@ package org.isemper.com.institutosemper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.isemper.com.institutosemper.security.entity.RoleEntity;
-import org.isemper.com.institutosemper.security.entity.UserEntity;
+import org.isemper.com.institutosemper.security.model.entity.RoleEntity;
+import org.isemper.com.institutosemper.security.model.entity.UserEntity;
 import org.isemper.com.institutosemper.security.repository.RoleRepository;
 import org.isemper.com.institutosemper.security.repository.UserRepository;
 import org.isemper.com.institutosemper.security.repository.UserRoleRepository;

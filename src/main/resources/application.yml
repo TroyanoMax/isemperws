@@ -13,6 +13,7 @@ spring:
     hibernate:
       ddl-auto: none  # Puede ser 'update', 'validate', 'create', 'create-drop'
     show-sql: false    # Muestra las consultas SQL en la consola
+    open-in-view: false
 
   security:
     user:

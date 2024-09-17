@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         // No utilizar sesiones en servidor (API stateless)
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
+                );
+                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
 
         // Agregar el filtro JWT para procesar las solicitudes
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -49,10 +49,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();  // Utilizar BCrypt para encriptar las contraseñas
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();  // Utilizar BCrypt para encriptar las contraseñas
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {

@@ -1,4 +1,4 @@
-package org.isemper.com.institutosemper.security.dto;
+package org.isemper.com.institutosemper.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO {
+public class RoleDTO {
 
-    @JsonProperty("userId")
-    private int userId;
+    @JsonProperty("roleEntityId")
+    private Long roleId;
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("description")
+    private String description;
 
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("code")
+    private String code;
 
 }

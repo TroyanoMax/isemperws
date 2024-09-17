@@ -1,7 +1,7 @@
 package org.isemper.com.institutosemper.controller;
 
-import org.isemper.com.institutosemper.security.dto.AuthRequest;
-import org.isemper.com.institutosemper.security.dto.AuthResponse;
+import org.isemper.com.institutosemper.security.model.dto.AuthRequest;
+import org.isemper.com.institutosemper.security.model.dto.AuthResponse;
 import org.isemper.com.institutosemper.security.service.UserDetailsServiceImpl;
 import org.isemper.com.institutosemper.security.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
