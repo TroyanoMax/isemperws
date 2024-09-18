@@ -1,6 +1,5 @@
 package org.isemper.com.institutosemper.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,14 +8,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.isemper.com.institutosemper.exception.GeneralServiceException;
-import org.isemper.com.institutosemper.model.dto.GenericResponseDTO;
 import org.isemper.com.institutosemper.model.dto.UserDTO;
 import org.isemper.com.institutosemper.model.dto.UserResponse;
+import org.isemper.com.institutosemper.security.model.common.GenericResponse;
 import org.isemper.com.institutosemper.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -53,19 +53,19 @@ public class UsersController extends CommonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<GenericResponseDTO<UserResponse>> userSingup(
+    public ResponseEntity<GenericResponse<UserResponse>> userSingup(
             @Parameter(description = "Datos del usuario")
             @RequestBody UserDTO body
     ){
         try {
 
             return ResponseEntity.ok(
-                    new GenericResponseDTO<>(
-                            CommonController.SUCCESS,
-                            CommonController.HTTP_SUCCESS,
+                    new GenericResponse<>(
+                            !HttpStatus.OK.isError(),
+                            HttpStatus.OK.value(),
                             null,
                             null,
-                            CommonController.SUCCESS_MESSAGE,
+                            HttpStatus.OK.getReasonPhrase(),
                             usersService.userSignup(body)
                     )
             );
@@ -73,12 +73,12 @@ public class UsersController extends CommonController {
         } catch (GeneralServiceException e) {
             log.warn(e.getMessage(), e);
             return new ResponseEntity<>(
-                    new GenericResponseDTO<>(
-                            ERROR,
-                            HTTP_APP_FAILURE,
-                            null,
-                            e.getMessage(),
-                            null,
+                    new GenericResponse<>(
+                            !HttpStatus.INTERNAL_SERVER_ERROR.isError(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+                            e.getCause().getMessage(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
                             null
                     ),
                     HttpStatus.INTERNAL_SERVER_ERROR);

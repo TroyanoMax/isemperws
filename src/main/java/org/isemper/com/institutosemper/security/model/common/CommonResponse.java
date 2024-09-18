@@ -1,28 +1,36 @@
 /**
  * 
  */
-package org.isemper.com.institutosemper.model.common;
+package org.isemper.com.institutosemper.security.model.common;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-/**
- * @author Carlos Escobedo Arriaga
- *
- */
+/** * @author Claudio R. González. */
+@MappedSuperclass
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommonResponse implements Serializable {
 
-  /**
-   * The constant serialVersionUID.
-   */
+  /** * The constant serialVersionUID. */
+  @Serial
   private static final long serialVersionUID = 1L;
-  /**
-   * Status Message.
-   */
-  @Setter
-  @Getter
+
+  /** * Status Message. */
+  @JsonProperty("status")
   private transient StatusMessage status;
 
   /**
