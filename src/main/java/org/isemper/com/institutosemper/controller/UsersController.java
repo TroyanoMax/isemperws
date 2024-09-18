@@ -1,6 +1,12 @@
 package org.isemper.com.institutosemper.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.isemper.com.institutosemper.exception.GeneralServiceException;
 import org.isemper.com.institutosemper.model.dto.GenericResponseDTO;
@@ -30,11 +36,25 @@ public class UsersController extends CommonController {
      * @param body body
      * @return body respuesta
      */
+    @Operation(summary = "Dar de alta un usuario.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User SignUp",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class)
+                    )}),
+            @ApiResponse(responseCode = "403", description = "No Token",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = GeneralServiceException.class)
+                    ))}
+    )
     @PostMapping(path = "/sign-up",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<GenericResponseDTO<UserResponse>> userSingup(
+            @Parameter(description = "Datos del usuario")
             @RequestBody UserDTO body
     ){
         try {
