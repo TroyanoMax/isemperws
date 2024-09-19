@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -39,7 +40,7 @@ public class UsersServiceImpl implements UsersService {
 
         try {
 
-            //userRepository.save(user);
+            userRepository.save(user);
 
         } catch (DataAccessException e) {
             log.error("Error while signing up: {}", e.getMessage());
@@ -52,6 +53,15 @@ public class UsersServiceImpl implements UsersService {
 
         return users;
 
+    }
+
+    public void incrementLoginCount(String username) {
+        Optional<UserEntity> userOptional = Optional.ofNullable(userRepository.findByUsername(username));
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            user.setCantAcc(user.getCantAcc() + 1);
+            userRepository.save(user);
+        }
     }
 
 }

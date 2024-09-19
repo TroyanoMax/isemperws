@@ -1,6 +1,5 @@
 package org.isemper.com.institutosemper.security.audit;
 
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
@@ -17,7 +16,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return Optional.of("Anonymous");
+            return Optional.of("SYSTEM");
         }
         return Optional.of(authentication.getName());
     }

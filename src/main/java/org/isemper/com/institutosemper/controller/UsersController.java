@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,7 +42,7 @@ public class UsersController extends CommonController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = UserDTO.class)
                     )}),
-            @ApiResponse(responseCode = "403", description = "No Token",
+            @ApiResponse(responseCode = "403", description = "Bad credentials",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = GeneralServiceException.class)
@@ -58,7 +57,6 @@ public class UsersController extends CommonController {
             @RequestBody UserDTO body
     ){
         try {
-
             return ResponseEntity.ok(
                     new GenericResponse<>(
                             !HttpStatus.OK.isError(),
@@ -69,7 +67,6 @@ public class UsersController extends CommonController {
                             usersService.userSignup(body)
                     )
             );
-
         } catch (GeneralServiceException e) {
             log.warn(e.getMessage(), e);
             return new ResponseEntity<>(
@@ -77,11 +74,12 @@ public class UsersController extends CommonController {
                             !HttpStatus.INTERNAL_SERVER_ERROR.isError(),
                             HttpStatus.INTERNAL_SERVER_ERROR.value(),
                             HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-                            e.getCause().getMessage(),
+                            e.getMessage(),
                             HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
                             null
                     ),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 

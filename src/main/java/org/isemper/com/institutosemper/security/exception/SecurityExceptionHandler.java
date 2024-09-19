@@ -1,5 +1,8 @@
 package org.isemper.com.institutosemper.security.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import org.isemper.com.institutosemper.exception.GeneralServiceException;
 import org.isemper.com.institutosemper.security.model.common.GenericResponse;
 import org.isemper.com.institutosemper.security.model.dto.AuthResponse;
 import org.springframework.http.HttpStatus;
@@ -9,12 +12,14 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class SecurityExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<GenericResponse<AuthResponse>>  handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
@@ -30,6 +35,7 @@ public class SecurityExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<GenericResponse<AuthResponse>> handleAccessDeniedException(AccessDeniedException ex) {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
@@ -45,7 +51,10 @@ public class SecurityExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<GenericResponse<AuthResponse>> handleAuthenticationException(AuthenticationException ex) {
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<GenericResponse<AuthResponse>> handleAuthenticationException(
+            AuthenticationException ex
+    ) {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(
@@ -59,7 +68,26 @@ public class SecurityExceptionHandler {
                         ));
     }
 
+    @ExceptionHandler(JwtException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<GenericResponse<AuthResponse>> handleExpiredJwtException(
+            JwtException ex
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(
+                        new GenericResponse<>(
+                                !HttpStatus.UNAUTHORIZED.isError(),
+                                HttpStatus.UNAUTHORIZED.value(),
+                                HttpStatus.UNAUTHORIZED.toString(),
+                                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                                ex.getMessage(),
+                                null
+                        ));
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<GenericResponse<AuthResponse>> handleHttpMessageNotReadableException(
             HttpMessageNotReadableException ex
     ) {

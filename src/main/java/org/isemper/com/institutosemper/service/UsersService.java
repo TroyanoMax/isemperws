@@ -7,4 +7,6 @@ public interface UsersService {
 
     UserResponse userSignup(UserDTO userDTO);
 
+    void incrementLoginCount(String username);
+
 }
