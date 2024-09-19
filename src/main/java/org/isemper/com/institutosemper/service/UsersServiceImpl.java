@@ -12,7 +12,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -50,15 +49,6 @@ public class UsersServiceImpl implements UsersService {
 
         return users;
 
-    }
-
-    public void incrementLoginCount(String username) {
-        Optional<UserEntity> userOptional = Optional.ofNullable(userRepository.findByUsername(username));
-        if (userOptional.isPresent()) {
-            UserEntity user = userOptional.get();
-            user.setCantAcc(user.getCantAcc() + 1);
-            userRepository.save(user);
-        }
     }
 
 }

@@ -35,7 +35,7 @@ public class UsersController extends CommonController {
      * @param body body
      * @return body respuesta
      */
-    @Operation(summary = "Dar de alta un usuario.")
+    @Operation(summary = "User SignUp.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User SignUp",
                     content = {@Content(
@@ -52,7 +52,7 @@ public class UsersController extends CommonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<GenericResponse<UserResponse>> userSingup(
+    public ResponseEntity<GenericResponse<UserResponse>> userSingUp(
             @Parameter(description = "Datos del usuario")
             @RequestBody UserDTO body
     ){

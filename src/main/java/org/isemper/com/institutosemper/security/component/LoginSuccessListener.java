@@ -1,5 +1,7 @@
 package org.isemper.com.institutosemper.security.component;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.isemper.com.institutosemper.security.service.SecurityService;
 import org.isemper.com.institutosemper.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -13,11 +15,17 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 public class LoginSuccessListener implements ApplicationListener<AuthenticationSuccessEvent> {
 
-    private final UsersService userService;
+    private final SecurityService securityService;
+
+    private final HttpServletRequest request;
 
     @Autowired
-    public LoginSuccessListener(UsersService usuarioService) {
-        this.userService = usuarioService;
+    public LoginSuccessListener(
+            SecurityService securityService,
+            HttpServletRequest request
+    ) {
+        this.securityService = securityService;
+        this.request = request;
     }
 
     @Override
@@ -26,6 +34,8 @@ public class LoginSuccessListener implements ApplicationListener<AuthenticationS
         Authentication authentication = event.getAuthentication();
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-        userService.incrementLoginCount(username);
+        String ipAddress = request.getRemoteAddr();
+        securityService.loginAuditor(username, ipAddress);
+        securityService.incrementLoginCount(username);
     }
 }
