@@ -1,6 +1,5 @@
 package org.isemper.com.institutosemper.service;
 
-import jdk.jshell.spi.ExecutionControl;
 import lombok.extern.log4j.Log4j2;
 import org.isemper.com.institutosemper.exception.GeneralServiceException;
 import org.isemper.com.institutosemper.model.dto.UserResponse;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,11 +37,11 @@ public class UsersServiceImpl implements UsersService {
 
         try {
 
-            userRepository.save(user);
+            user = userRepository.save(user);
 
         } catch (DataAccessException e) {
             log.error("Error while signing up: {}", e.getMessage());
-            throw new GeneralServiceException("Error while signin up" + e.getMessage());
+            throw new GeneralServiceException("Error while signin up: " + e.getMessage());
         }
 
         UserDTO userSaved = modelMapper.map(user, UserDTO.class);

@@ -68,7 +68,7 @@ public class UsersController extends CommonController {
                     )
             );
         } catch (GeneralServiceException e) {
-            log.warn(e.getMessage(), e);
+            log.warn(e.getMessage());
             return new ResponseEntity<>(
                     new GenericResponse<>(
                             !HttpStatus.INTERNAL_SERVER_ERROR.isError(),
