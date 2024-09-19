@@ -1,4 +1,4 @@
-package org.isemper.com.institutosemper.security.dto;
+package org.isemper.com.institutosemper.security.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package org.isemper.com.institutosemper.security.entity;
+package org.isemper.com.institutosemper.security.model.entity;
 
 import lombok.*;
 import jakarta.persistence.*;

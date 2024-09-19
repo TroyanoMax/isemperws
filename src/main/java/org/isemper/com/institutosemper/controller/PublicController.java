@@ -2,8 +2,9 @@ package org.isemper.com.institutosemper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.isemper.com.institutosemper.security.entity.RoleEntity;
-import org.isemper.com.institutosemper.security.entity.UserEntity;
+import io.swagger.v3.oas.annotations.Operation;
+import org.isemper.com.institutosemper.security.model.entity.RoleEntity;
+import org.isemper.com.institutosemper.security.model.entity.UserEntity;
 import org.isemper.com.institutosemper.security.repository.RoleRepository;
 import org.isemper.com.institutosemper.security.repository.UserRepository;
 import org.isemper.com.institutosemper.security.repository.UserRoleRepository;
@@ -31,7 +32,8 @@ public class PublicController {
         this.userRoleRepository = userRoleRepository;
     }
 
-    @GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Get First User for Test")
+    @GetMapping(value = "/get-first", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserEntity> data() {
         // Crear un objeto JSON utilizando ObjectMapper
         ObjectMapper mapper = new ObjectMapper();
