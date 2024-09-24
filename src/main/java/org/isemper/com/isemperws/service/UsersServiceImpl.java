@@ -2,6 +2,7 @@ package org.isemper.com.isemperws.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.isemper.com.isemperws.exception.GeneralServiceException;
+import org.isemper.com.isemperws.model.dto.AlumnoDTO;
 import org.isemper.com.isemperws.model.dto.UserResponse;
 import org.isemper.com.isemperws.model.dto.UserDTO;
 import org.isemper.com.isemperws.model.entity.Alumno;
@@ -36,10 +37,9 @@ public class UsersServiceImpl implements UsersService {
     public UserResponse userSignup(UserDTO userDTO) {
 
         var users = new UserResponse();
-        var userSaved  = new UserEntity();
+        UserEntity userSaved;
 
         var user = modelMapper.map(userDTO, UserEntity.class);
-
         var alumno = this.validarAlumno(user.getCodAlu());
 
         try {
@@ -52,8 +52,10 @@ public class UsersServiceImpl implements UsersService {
         }
 
         UserDTO userResponse = modelMapper.map(userSaved, UserDTO.class);
+        AlumnoDTO alumnoResponse = modelMapper.map(alumno, AlumnoDTO.class);
 
         users.setUsers(List.of(userResponse));
+        users.setAlumno(List.of(alumnoResponse));
 
         return users;
 
@@ -62,12 +64,16 @@ public class UsersServiceImpl implements UsersService {
     private Alumno validarAlumno(Integer codigo) {
         log.info("Validating user with code: {}", codigo);
 
-        return alumnoRepository.findByCodigo(codigo)
+        String code = codigo.toString();
+
+        return alumnoRepository.findByCodigo(code)
                 .map(alumno -> {
-                    log.info("Alumno found: {}", alumno.getApellido());
+                    log.info("Alumno found: {}", alumno.getCodigo());
                     return alumno;
                 })
-                .orElseThrow(() -> new RuntimeException("Alumno not found with code: " + codigo));
+                .orElseThrow(
+                        () -> new RuntimeException("Alumno not found with code: " + codigo)
+                );
     }
 
 }

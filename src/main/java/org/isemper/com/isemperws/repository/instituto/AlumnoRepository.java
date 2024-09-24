@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AlumnoRepository extends JpaRepository<Alumno, String> {
 
-    Optional<Alumno> findByCodigo(Integer codigo);
+    Optional<Alumno> findByCodigo(String codigo);
 
 }

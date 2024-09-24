@@ -20,7 +20,7 @@ import java.util.Objects;
 @EnableJpaRepositories(
     basePackages = {
             "org.isemper.com.isemperws.security.repository",
-            "org.isemper.com.institutosemper.repository.institutows"
+            "org.isemper.com.isemperws.repository.institutows"
     },
     entityManagerFactoryRef = "db1EntityManagerFactory",
     transactionManagerRef = "db1TransactionManager"

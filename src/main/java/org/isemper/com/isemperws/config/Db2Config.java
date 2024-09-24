@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = "org.isemper.com.isemperws.instituto",
+    basePackages = "org.isemper.com.isemperws.repository.instituto",
     entityManagerFactoryRef = "db2EntityManagerFactory",
     transactionManagerRef = "db2TransactionManager"
 )
