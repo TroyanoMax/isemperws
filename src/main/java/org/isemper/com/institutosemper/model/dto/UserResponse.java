@@ -14,7 +14,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponse extends AuditDTO {
 
     @JsonProperty("users")
     private List<UserDTO> users;
