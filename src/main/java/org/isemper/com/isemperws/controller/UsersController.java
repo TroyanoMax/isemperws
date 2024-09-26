@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.isemper.com.isemperws.exception.GeneralServiceException;
 import org.isemper.com.isemperws.model.dto.UserDTO;
 import org.isemper.com.isemperws.model.dto.UserResponse;
+import org.isemper.com.isemperws.model.projection.StudentDataProjection;
 import org.isemper.com.isemperws.security.model.common.GenericResponse;
 import org.isemper.com.isemperws.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,58 @@ public class UsersController extends CommonController {
                             null,
                             HttpStatus.OK.getReasonPhrase(),
                             usersService.userSignup(body)
+                    )
+            );
+        } catch (GeneralServiceException e) {
+            log.warn(e.getMessage());
+            return new ResponseEntity<>(
+                    new GenericResponse<>(
+                            !HttpStatus.INTERNAL_SERVER_ERROR.isError(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+                            e.getMessage(),
+                            HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                            null
+                    ),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
+     * Servicio guardar quejas.
+     * @param body body
+     * @return body respuesta
+     */
+    @Operation(summary = "Verfify Student Registration.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Verfify Student Registration.",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = UserDTO.class)
+                    )}),
+            @ApiResponse(responseCode = "403", description = "Bad credentials",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = GeneralServiceException.class)
+                    ))}
+    )
+    @GetMapping(path = "/sign-up/verify-student",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<GenericResponse<StudentDataProjection>> verifyStudentRegistration(
+            @Parameter(description = "Codigo")
+            @RequestParam("code") String codigo
+    ){
+        try {
+            return ResponseEntity.ok(
+                    new GenericResponse<>(
+                            !HttpStatus.OK.isError(),
+                            HttpStatus.OK.value(),
+                            null,
+                            null,
+                            HttpStatus.OK.getReasonPhrase(),
+                            usersService.verifyStudentRegistration(codigo)
                     )
             );
         } catch (GeneralServiceException e) {

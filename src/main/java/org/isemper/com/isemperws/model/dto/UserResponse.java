@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.isemper.com.isemperws.model.entity.Alumno;
+import org.isemper.com.isemperws.model.projection.StudentDataProjection;
 
 import java.util.List;
 
@@ -24,6 +24,6 @@ public class UserResponse extends AuditDTO {
     private String userString;
 
     @JsonProperty("alumno")
-    private List<AlumnoDTO> alumno;
+    private List<StudentDataProjection> alumno;
 
 }

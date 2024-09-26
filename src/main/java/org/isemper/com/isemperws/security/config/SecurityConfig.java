@@ -31,11 +31,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/authenticate").permitAll()
-                        .requestMatchers("/swagger-ui/**", "swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/auth/authenticate").permitAll()
+                        .requestMatchers("/users/sign-up", "/users/sign-up/verify-student").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/alumno/**").hasAnyRole("ADMIN", "ALUMO")
+                        .requestMatchers("/swagger-ui/**", "swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

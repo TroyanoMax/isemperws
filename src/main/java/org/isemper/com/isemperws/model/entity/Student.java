@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "alumno", schema = "x031vm05_instituto")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Alumno {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
